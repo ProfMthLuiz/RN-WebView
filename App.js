@@ -1,11 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View, Button } from "react-native";
+import { WebView } from "react-native-webview";
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      {showWebView ? (
+        <WebView
+          source={{ uri: "https://expo.dev" }}
+          style={{ flex: 1 }}
+          onNavigationStateChange={(navState) =>
+            navState.url !== "https://expo.dev" && handleCloseWebView()
+          }
+        />
+      ) : (
+        <Button title="Abrir WebView" onPress={handleShowWebView} />
+      )}
     </View>
   );
 }
@@ -13,8 +23,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
